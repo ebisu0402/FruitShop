@@ -29,6 +29,31 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
+  # 商品編集
+  def edit
+    @product = Product.find(params[:id])
+  end
+
+  # 商品更新
+  def update
+    @product = Product.find(params[:id])
+    if @product.update(product_params)
+      # 商品詳細にリダイレクト
+      redirect_to product_path
+    else
+      # 失敗時に編集画面に戻る
+      render :edit
+    end
+  end
+
+  # 商品削除
+  def destroy
+    @product = Product.find(params[:id])
+    @product.destroy
+    # 商品一覧にリダイレクト
+    redirect_to products_path
+  end
+
   private
 
     # ストロングパラメータで、フォームから送信されたデータを許可する
